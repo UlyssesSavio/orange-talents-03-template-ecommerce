@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Target({ FIELD})
 @Retention(RUNTIME)
 public @interface UniqueValue {
-	
+	//Classe da anotacao de validacao de campo unico
 	String message() default "Campo duplicado";
 	
 	Class<?>[] groups() default {};

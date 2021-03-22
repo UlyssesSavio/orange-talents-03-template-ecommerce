@@ -23,7 +23,7 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 		klass = params.domainClass();
 	}
 	
-	
+	//Logica da validacao
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		Query query = manager.createQuery("select 1 from "+klass.getName()+" where "+domainAttribute+"=:value");
