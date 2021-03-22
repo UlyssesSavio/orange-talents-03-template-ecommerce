@@ -2,6 +2,7 @@ package com.br.mercadoLivre.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,9 +28,11 @@ public class Usuario {
 	
 	@NotBlank
 	@Email
+	@Column(unique = true, nullable=false)
 	private String login;
 	@NotBlank
 	@Length(min=6)
+	@Column( nullable=false)
 	private String senha;
 	
 	@NotNull
