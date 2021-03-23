@@ -17,7 +17,6 @@ import javax.validation.constraints.PastOrPresent;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.br.mercadoLivre.util.SenhaLimpa;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -26,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Usuario implements UserDetails{
 
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

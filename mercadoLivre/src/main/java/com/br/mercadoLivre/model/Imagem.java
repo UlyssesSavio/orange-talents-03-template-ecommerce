@@ -4,26 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Imagem {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
-	private String link= new String();
 
+	private String link = new String();
 
 	public Imagem() {
-		
+
 	}
-	
+
 	public Imagem(String link) {
-		
+
 		this.link = link;
 	}
 
@@ -35,11 +31,4 @@ public class Imagem {
 		return link;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 }

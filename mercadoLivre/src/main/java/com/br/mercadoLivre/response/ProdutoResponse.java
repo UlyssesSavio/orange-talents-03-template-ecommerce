@@ -4,20 +4,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
 
 import com.br.mercadoLivre.model.Caracteristica;
 import com.br.mercadoLivre.model.Categoria;
 import com.br.mercadoLivre.model.Imagem;
 import com.br.mercadoLivre.model.Produto;
-import com.br.mercadoLivre.model.Usuario;
 
 public class ProdutoResponse {
 

@@ -6,14 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.Column;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -21,7 +18,6 @@ import com.br.mercadoLivre.model.Caracteristica;
 import com.br.mercadoLivre.model.Categoria;
 import com.br.mercadoLivre.model.Produto;
 import com.br.mercadoLivre.model.Usuario;
-import com.br.mercadoLivre.repository.CaracteristicaRepository;
 import com.br.mercadoLivre.repository.CategoriaRepository;
 
 import io.jsonwebtoken.lang.Assert;

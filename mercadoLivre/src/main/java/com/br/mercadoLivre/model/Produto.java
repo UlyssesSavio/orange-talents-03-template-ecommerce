@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Produto {
@@ -142,12 +140,6 @@ public class Produto {
 		
 	}
 
-	public void teste() {
-		System.out.println("\n\n todas as imagens \n\n");
-		for (int i = 0; i < imagens.size(); i++) {
-			System.out.println("\n "+imagens.get(i).getLink()+" \n");
-		}
-		
-	}
+	
 
 }

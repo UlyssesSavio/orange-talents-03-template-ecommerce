@@ -3,7 +3,6 @@ package com.br.mercadoLivre.validator;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.SizeLimitExceededException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -42,7 +41,6 @@ public class ErroDeValidacaoHandler {
 		return dto;
 	}
 	
-	//SizeLimitExceededException
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = { IllegalStateException.class })

@@ -16,7 +16,6 @@ public class UsuarioRequest {
 
 	@NotBlank
 	@Email
-	//Anotacao sendo usada no request
 	@UniqueValue(domainClass = Usuario.class, fieldName = "login")
 	private String login;
 	@NotBlank
