@@ -15,7 +15,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.br.mercadoLivre.model.Caracteristica;
 import com.br.mercadoLivre.model.Categoria;
+import com.br.mercadoLivre.model.Imagem;
 import com.br.mercadoLivre.model.Produto;
+import com.br.mercadoLivre.model.Usuario;
 
 public class ProdutoResponse {
 
@@ -25,6 +27,9 @@ public class ProdutoResponse {
 	private List<Caracteristica> caracteristicas = new ArrayList<>();;
 	private String descricao;
 	private Categoria categoria;
+	private UsuarioResponse usuario;
+	
+	private List<Imagem> imagens = new ArrayList<Imagem>();
 
 	public ProdutoResponse() {
 
@@ -39,6 +44,22 @@ public class ProdutoResponse {
 		this.descricao = descricao;
 		this.categoria = categoria;
 	}
+	
+	
+	
+
+	public ProdutoResponse(String nome, BigDecimal valor, int quantidade, List<Caracteristica> caracteristicas,
+			String descricao, Categoria categoria, UsuarioResponse usuario, List<Imagem> imagens) {
+		super();
+		this.nome = nome;
+		this.valor = valor;
+		this.quantidade = quantidade;
+		this.caracteristicas = caracteristicas;
+		this.descricao = descricao;
+		this.categoria = categoria;
+		this.usuario = usuario;
+		this.imagens = imagens;
+	}
 
 	public ProdutoResponse(Produto produto) {
 		this.nome = produto.getNome();
@@ -47,6 +68,8 @@ public class ProdutoResponse {
 		this.caracteristicas = produto.getCaracteristicas();
 		this.descricao = produto.getDescricao();
 		this.categoria = produto.getCategoria();
+		this.usuario = new UsuarioResponse(produto.getUsuario());
+		this.imagens = produto.getImagens();
 	}
 
 	public String getNome() {
@@ -72,6 +95,17 @@ public class ProdutoResponse {
 	public Categoria getCategoria() {
 		return categoria;
 	}
+
+	public UsuarioResponse getUsuario() {
+		return usuario;
+	}
+
+	public List<Imagem> getImagens() {
+		return imagens;
+	}
+
+	
+	
 
 	
 	

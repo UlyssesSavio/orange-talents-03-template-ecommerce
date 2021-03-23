@@ -14,10 +14,13 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.br.mercadoLivre.model.Caracteristica;
 import com.br.mercadoLivre.model.Categoria;
 import com.br.mercadoLivre.model.Produto;
+import com.br.mercadoLivre.model.Usuario;
 import com.br.mercadoLivre.repository.CaracteristicaRepository;
 import com.br.mercadoLivre.repository.CategoriaRepository;
 
@@ -104,6 +107,9 @@ public class ProdutoRequest {
 
 
 	public Produto converter(CategoriaRepository categoriaRepository) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = (Usuario)authentication.getPrincipal();
 
 		Assert.state(caracteristicas.size() >= 3, "Precisa ter 3 ou mais caracteristicas");
 
@@ -111,7 +117,7 @@ public class ProdutoRequest {
 
 		Assert.state(categoria.isPresent(), "Categoria nao encontrada. Id:" + idCategoria);
 
-		return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoria.get());
+		return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoria.get(), usuario);
 	}
 
 }

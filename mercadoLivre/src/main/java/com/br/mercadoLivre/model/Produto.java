@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -22,50 +23,50 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Produto {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String nome;
-	
+
 	@NotNull
 	@Min(1)
 	private BigDecimal valor;
-	
+
 	@NotNull
 	@Min(1)
 	private int quantidade;
-	
-	
-	//Utilizado o cascade para inserir as caracteristica antes de atribuir no produto
-	@ManyToMany(cascade=CascadeType.PERSIST)
+
+	// Utilizado o cascade para inserir as caracteristica antes de atribuir no
+	// produto
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Caracteristica> caracteristicas = new ArrayList<>();;
-	
+
 	@NotEmpty
-	@Column(length=1000, nullable=false)
+	@Column(length = 1000, nullable = false)
 	private String descricao;
-	
-	
+
 	@NotNull
 	@ManyToOne
 	private Categoria categoria;
 
-	
+	@NotNull
+	@ManyToOne
+	private Usuario usuario;
+
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List<Imagem> imagens = new ArrayList<Imagem>();
+
 	public Produto() {
-		
+
 	}
 
-	
-
-
-
-
 	public Produto(@NotBlank String nome, @NotNull @Min(1) BigDecimal valor, @NotNull @Min(1) int quantidade,
-			List<Caracteristica> caracteristicas, @NotEmpty String descricao, @NotNull Categoria categoria) {
+			List<Caracteristica> caracteristicas, @NotEmpty String descricao, @NotNull Categoria categoria,
+			@NotNull Usuario usuario) {
 		super();
 		this.nome = nome;
 		this.valor = valor;
@@ -73,12 +74,22 @@ public class Produto {
 		this.caracteristicas = caracteristicas;
 		this.descricao = descricao;
 		this.categoria = categoria;
+		this.usuario = usuario;
 	}
 
-
-
-
-
+	public Produto(@NotBlank String nome, @NotNull @Min(1) BigDecimal valor, @NotNull @Min(1) int quantidade,
+			List<Caracteristica> caracteristicas, @NotEmpty String descricao, @NotNull Categoria categoria,
+			@NotNull Usuario usuario, List<Imagem> imagens) {
+		super();
+		this.nome = nome;
+		this.valor = valor;
+		this.quantidade = quantidade;
+		this.caracteristicas = caracteristicas;
+		this.descricao = descricao;
+		this.categoria = categoria;
+		this.usuario = usuario;
+		this.imagens = imagens;
+	}
 
 	public Long getId() {
 		return id;
@@ -107,10 +118,36 @@ public class Produto {
 	public Categoria getCategoria() {
 		return categoria;
 	}
+
 	
-	
-	
-	
-	
+
+	public void setImagens(List<Imagem> imagens) {
+		this.imagens = imagens;
+	}
+
+	public List<Imagem> getImagens() {
+		return imagens;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void associaImagens(List<String> listaImagens) {
+
+		for (int i = 0; i < listaImagens.size(); i++) {
+			imagens.add(new Imagem(listaImagens.get(i).toString()+"/"));
+		}
+		
+		
+	}
+
+	public void teste() {
+		System.out.println("\n\n todas as imagens \n\n");
+		for (int i = 0; i < imagens.size(); i++) {
+			System.out.println("\n "+imagens.get(i).getLink()+" \n");
+		}
+		
+	}
 
 }

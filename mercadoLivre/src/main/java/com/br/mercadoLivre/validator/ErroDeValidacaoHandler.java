@@ -3,6 +3,8 @@ package com.br.mercadoLivre.validator;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.SizeLimitExceededException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import com.br.mercadoLivre.response.ErroDeFormularioResponse;
 
@@ -38,6 +42,8 @@ public class ErroDeValidacaoHandler {
 		return dto;
 	}
 	
+	//SizeLimitExceededException
+	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = { IllegalStateException.class })
 	public ErroDeFormularioResponse handleIlegal(IllegalStateException exception) {
@@ -47,4 +53,26 @@ public class ErroDeValidacaoHandler {
 
 		return response;
 	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = { MissingServletRequestPartException.class })
+	public ErroDeFormularioResponse handleMissing(MissingServletRequestPartException exception) {
+
+		ErroDeFormularioResponse response = new ErroDeFormularioResponse(exception.getClass().getName(), exception.getLocalizedMessage());
+		
+
+		return response;
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = { MaxUploadSizeExceededException.class})
+	public ErroDeFormularioResponse handleFileGrande(MaxUploadSizeExceededException exception) {
+
+		ErroDeFormularioResponse response = new ErroDeFormularioResponse(exception.getClass().getName(), exception.getLocalizedMessage());
+		
+
+		return response;
+	}
+	
+	
 }
