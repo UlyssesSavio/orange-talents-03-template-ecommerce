@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +35,7 @@ public class ProdutoRequest {
 	private BigDecimal valor;
 
 	@NotNull
-	@Min(1)
+	@PositiveOrZero
 	private int quantidade;
 
 	private List<Caracteristica> caracteristicas = new ArrayList<>();;

@@ -57,7 +57,6 @@ public class Usuario implements UserDetails{
 		this.senha = senhaLimpa.hash();
 		this.dataInstante = LocalDate.now();
 		
-		System.out.println("Senha encriptada: "+this.senha);
 	}
 
 	public Long getId() {

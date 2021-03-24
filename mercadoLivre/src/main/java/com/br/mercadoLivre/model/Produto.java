@@ -17,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 
 @Entity
@@ -35,7 +36,7 @@ public class Produto {
 	private BigDecimal valor;
 
 	@NotNull
-	@Min(1)
+	@PositiveOrZero
 	private int quantidade;
 
 	// Utilizado o cascade para inserir as caracteristica antes de atribuir no
@@ -138,6 +139,14 @@ public class Produto {
 		}
 		
 		
+	}
+	
+	public boolean abateEstoque(int quantidade) {
+		if(this.quantidade >= quantidade && this.quantidade > 0) {
+			this.quantidade -= quantidade;
+			return true;
+		}
+		return false;
 	}
 
 	
