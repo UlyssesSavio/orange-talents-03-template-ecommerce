@@ -113,6 +113,14 @@ public class Compra {
 	public Set<Transacao> getTransacoes() {
 		return transacoes;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "Compra [usuario=" + usuario + ", produto=" + produto + ", quantidade=" + quantidade
+				+ ", valorNoMomento=" + valorNoMomento + ", gateway=" + gateway + ", dataCompra=" + dataCompra
+				+ ", transacoes=" + transacoes + "]";
+	}
 
 	public void adicionaTransacao(@Valid Pagamento request) {
 		Transacao novaTransacao = request.converter(this);
@@ -127,6 +135,20 @@ public class Compra {
 		Assert.isTrue(transacoesConcluidasComSucesso.isEmpty(), "Essa compra ja foi concluida.");
 		this.transacoes.add(novaTransacao);
 		
+	}
+	
+	private Set<Transacao> transacoesConcluidasComSucesso() {
+		Set<Transacao> transacoesConcluidasComSucesso = this.transacoes.stream()
+				.filter(Transacao::concluidaComSucesso)
+				.collect(Collectors.toSet());
+
+		Assert.isTrue(transacoesConcluidasComSucesso.size() <= 1,"Deu ruim deu ruim deu ruim, tem mais de uma transacao concluida com sucesso aqui na compra "+this.id);
+
+		return transacoesConcluidasComSucesso;
+	}
+
+	public boolean processadaComSucesso() {
+		return !transacoesConcluidasComSucesso().isEmpty();
 	}
 
 }

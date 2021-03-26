@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.br.mercadoLivre.model.Compra;
 import com.br.mercadoLivre.repository.CompraRepository;
 import com.br.mercadoLivre.requests.PagSeguroRequest;
 import com.br.mercadoLivre.requests.PayPalRequest;
+import com.br.mercadoLivre.service.EventosNovaCompra;
 
 import io.jsonwebtoken.lang.Assert;
 
@@ -23,9 +25,16 @@ import io.jsonwebtoken.lang.Assert;
 public class FechamentoCompraParte2Controller {
 
 	private CompraRepository compraRepository;
+	
+	@Autowired
+	private EventosNovaCompra eventosNovaCompra;
+
+	
+
+	
 
 	public FechamentoCompraParte2Controller(CompraRepository compraRepository) {
-
+		super();
 		this.compraRepository = compraRepository;
 	}
 
@@ -45,11 +54,10 @@ public class FechamentoCompraParte2Controller {
 
 		compraRepository.save(compra);
 		enviarEmail(compra, pagSeguroRequest);
+		
+		eventosNovaCompra.processa(compra);
 
-		return "http://localhost:8080/pagseguro/"+compra.getId()+"/"+
-		pagSeguroRequest.getIdTransacao()+"/"+
-		compra.getUsuario().getId()+"/"+
-		pagSeguroRequest.getStatus();
+		return compra.toString();	
 		
 	}
 
@@ -69,10 +77,9 @@ public class FechamentoCompraParte2Controller {
 
 		enviarEmail(compra, payPalRequest);
 		
-		return "http://localhost:8080/paypal/"+compra.getId()+"/"+
-		payPalRequest.getIdTransacao()+"/"+
-		compra.getUsuario().getId()+"/"+
-		payPalRequest.getStatus();	
+		eventosNovaCompra.processa(compra);
+		
+		return compra.toString();	
 		}
 	
 	
