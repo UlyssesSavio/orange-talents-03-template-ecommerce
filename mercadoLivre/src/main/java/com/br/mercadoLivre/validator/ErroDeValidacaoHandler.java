@@ -53,6 +53,16 @@ public class ErroDeValidacaoHandler {
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = { IllegalArgumentException.class })
+	public ErroDeFormularioResponse handleIlegal(IllegalArgumentException exception) {
+
+		ErroDeFormularioResponse response = new ErroDeFormularioResponse(exception.getClass().getName(), exception.getLocalizedMessage());
+		
+
+		return response;
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = { MissingServletRequestPartException.class })
 	public ErroDeFormularioResponse handleMissing(MissingServletRequestPartException exception) {
 
